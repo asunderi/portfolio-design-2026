@@ -44,7 +44,10 @@ const projects = (await getCollection('projects')).sort(
 	.section { padding-block: var(--space-l) var(--space-2xl); }
 	.grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+		grid-template-columns: repeat(2, 1fr);
 		gap: var(--space-m);
+	}
+	@media (max-width: 40rem) {
+		.grid { grid-template-columns: 1fr; }
 	}
 </style>

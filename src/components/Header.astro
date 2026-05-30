@@ -6,24 +6,35 @@ const isActive = (href: string) =>
 const links = [
 	{ href: '/work', label: 'Work' },
 	{ href: '/about', label: 'About' },
-	{ href: '/contact', label: 'Contact' },
 ];
 ---
 
 <header class="site-header">
 	<div class="container site-header__inner">
 		<a href="/" class="site-header__brand">Anastacia&nbsp;Frost</a>
-		<nav aria-label="Primary">
-			<ul class="site-header__nav">
-				{links.map(({ href, label }) => (
-					<li>
-						<a href={href} aria-current={isActive(href) ? 'page' : undefined}>
-							{label}
-						</a>
-					</li>
-				))}
-			</ul>
-		</nav>
+		<div class="site-header__cluster">
+			<nav aria-label="Primary">
+				<ul class="site-header__nav">
+					{links.map(({ href, label }) => (
+						<li>
+							<a href={href} aria-current={isActive(href) ? 'page' : undefined}>
+								{label}
+							</a>
+						</li>
+					))}
+				</ul>
+			</nav>
+			<a class="button button--sm site-header__cta" href="mailto:hello@anastacia.design">Get in touch</a>
+			<button type="button" class="theme-toggle" aria-label="Toggle color theme" title="Toggle light / dark">
+				<svg class="icon icon-moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+				</svg>
+				<svg class="icon icon-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<circle cx="12" cy="12" r="4" />
+					<path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+				</svg>
+			</button>
+		</div>
 	</div>
 </header>
 
@@ -44,10 +55,15 @@ const links = [
 	}
 	.site-header__brand {
 		font-family: var(--font-display);
-		font-weight: 600;
+		font-weight: 500;
 		font-size: var(--step-0);
 		letter-spacing: -0.02em;
 		text-decoration: none;
+	}
+	.site-header__cluster {
+		display: flex;
+		align-items: center;
+		gap: var(--space-m);
 	}
 	.site-header__nav {
 		display: flex;
@@ -70,4 +86,54 @@ const links = [
 		text-decoration: underline;
 		text-underline-offset: 5px;
 	}
+
+	.theme-toggle {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 2.25rem;
+		height: 2.25rem;
+		padding: 0;
+		border-radius: 999px;
+		border: 1px solid var(--line);
+		background: transparent;
+		color: var(--ink-muted);
+		cursor: pointer;
+		transition: color 0.2s var(--ease), border-color 0.2s var(--ease), transform 0.2s var(--ease);
+	}
+	.theme-toggle:hover {
+		color: var(--accent);
+		border-color: var(--accent);
+		transform: translateY(-1px);
+	}
+	.theme-toggle .icon { transition: opacity 0.2s var(--ease); }
+
+	/* Icon shows ACTIVE theme: moon in light, sun in dark */
+	.icon-sun { display: none; }
+	.icon-moon { display: block; }
+	@media (prefers-color-scheme: dark) {
+		:root:not([data-theme='light']) .icon-sun { display: block; }
+		:root:not([data-theme='light']) .icon-moon { display: none; }
+	}
+	:root[data-theme='dark'] .icon-sun { display: block; }
+	:root[data-theme='dark'] .icon-moon { display: none; }
+	:root[data-theme='light'] .icon-sun { display: none; }
+	:root[data-theme='light'] .icon-moon { display: block; }
 </style>
+
+<script is:inline>
+	(() => {
+		const root = document.documentElement;
+		const btn = document.querySelector('.theme-toggle');
+		btn?.addEventListener('click', () => {
+			const active =
+				root.getAttribute('data-theme') ||
+				(matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+			const next = active === 'dark' ? 'light' : 'dark';
+			root.setAttribute('data-theme', next);
+			try {
+				localStorage.setItem('theme', next);
+			} catch (e) {}
+		});
+	})();
+</script>

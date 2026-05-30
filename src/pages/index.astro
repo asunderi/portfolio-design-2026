@@ -6,12 +6,6 @@ import ProjectCard from '../components/ProjectCard.astro';
 const projects = (await getCollection('projects'))
 	.filter((p) => p.data.featured)
 	.sort((a, b) => a.data.order - b.data.order);
-
-const stats = [
-	{ value: '50+', label: 'Projects' },
-	{ value: '9+', label: 'Years' },
-	{ value: '20+', label: 'Clients' },
-];
 ---
 
 <BaseLayout title="Anastacia Frost">
@@ -26,17 +20,8 @@ const stats = [
 		</p>
 		<div class="hero__actions">
 			<a class="button" href="/work">See my work</a>
-			<a class="button button--ghost" href="/contact">Get in touch</a>
+			<a class="button button--ghost" href="mailto:anastacia.lt.frost@gmail.com">Get in touch</a>
 		</div>
-
-		<ul class="stats">
-			{stats.map(({ value, label }) => (
-				<li class="stats__item">
-					<span class="stats__value">{value}</span>
-					<span class="stats__label">{label}</span>
-				</li>
-			))}
-		</ul>
 	</section>
 
 	<section class="section container">
@@ -55,6 +40,25 @@ const stats = [
 					tools={p.data.tools}
 				/>
 			))}
+		</div>
+	</section>
+
+	<section class="section container about-teaser">
+		<p class="eyebrow">About</p>
+		<p class="about-teaser__lede measure">
+			I'm Anastacia — a designer with nearly a decade of experience creating work
+			that solves problems, tells stories, and builds meaningful connections.
+		</p>
+		<a class="about-teaser__link" href="/about">More about me &rarr;</a>
+	</section>
+
+	<section id="contact" class="section container contact">
+		<p class="eyebrow">Contact</p>
+		<h2 class="contact__title">Let's make something.</h2>
+		<p class="contact__avail">Open to freelance and full-time design work.</p>
+		<div class="contact__actions">
+			<a class="button" href="mailto:hello@anastacia.design">Email me</a>
+			<a class="button button--ghost" href="https://www.linkedin.com/" rel="me">LinkedIn</a>
 		</div>
 	</section>
 </BaseLayout>
@@ -77,28 +81,6 @@ const stats = [
 		gap: var(--space-s);
 		margin-top: var(--space-l);
 	}
-	.stats {
-		display: flex;
-		flex-wrap: wrap;
-		gap: var(--space-xl);
-		list-style: none;
-		padding: 0;
-		margin-top: var(--space-2xl);
-		border-top: 1px solid var(--line);
-		padding-top: var(--space-l);
-	}
-	.stats__item { display: flex; flex-direction: column; }
-	.stats__value {
-		font-family: var(--font-display);
-		font-size: var(--step-4);
-		font-weight: 600;
-	}
-	.stats__label {
-		font-size: var(--step--1);
-		color: var(--ink-muted);
-		text-transform: uppercase;
-		letter-spacing: 0.08em;
-	}
 	.section__head {
 		display: flex;
 		align-items: baseline;
@@ -116,7 +98,38 @@ const stats = [
 	}
 	.grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+		grid-template-columns: repeat(2, 1fr);
 		gap: var(--space-m);
+	}
+	@media (max-width: 40rem) {
+		.grid { grid-template-columns: 1fr; }
+	}
+
+	.about-teaser__lede {
+		font-family: var(--font-display);
+		font-size: var(--step-3);
+		margin-top: var(--space-s);
+	}
+	.about-teaser__link {
+		display: inline-block;
+		margin-top: var(--space-m);
+		font-weight: 500;
+		color: var(--accent);
+		text-decoration: none;
+	}
+	.about-teaser__link:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+	#contact { scroll-margin-top: 5rem; }
+	.contact__title { font-size: var(--step-3); margin-top: var(--space-s); }
+	.contact__avail {
+		margin-top: var(--space-s);
+		font-size: var(--step-1);
+		color: var(--ink-muted);
+	}
+	.contact__actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-s);
+		margin-top: var(--space-l);
 	}
 </style>
