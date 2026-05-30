@@ -13,10 +13,15 @@ const projects = (await getCollection('projects'))
 <BaseLayout title="Anastacia Frost">
 	<PageHeader
 		variant="hero"
-		eyebrow="Anastacia Frost"
-		title="I'm a designer who cares more about the problem than the pixels."
-		lede="Nearly a decade turning fuzzy ideas into things that work, mean something, and feel like yours."
+		eyebrow="Multidisciplinary Designer"
+		title="Anastacia Frost"
+		lede="Beautiful design comes from well-defined scope."
 	>
+		<p class="hero-support measure">
+			When I start something, I work inside its limits while thinking about the
+			long haul: how it'll hold up, grow, and endure. More than fifteen years
+			of exactly that, across brand, interface, and web.
+		</p>
 		<Fragment slot="actions">
 			<a class="button" href="/work">See my work</a>
 			<a class="button button--ghost" href="mailto:hello@anastacia.design">Say hi</a>
@@ -50,9 +55,9 @@ const projects = (await getCollection('projects'))
 			<p class="eyebrow">About</p>
 			<h2>A bit about me</h2>
 			<p class="section-head__lede">
-				I've been drawing since before I can remember — these days I do it for
-				brands, interfaces, and the people who can't quite picture what they
-				want yet.
+				I've been drawing since before I can remember. These days it goes into
+				brand, interface, and web — work I'd rather see hold up than just stand
+				out.
 			</p>
 		</div>
 		<a class="about-teaser__link" href="/about">More about me &rarr;</a>
@@ -62,6 +67,10 @@ const projects = (await getCollection('projects'))
 </BaseLayout>
 
 <style>
+	.hero-support {
+		margin-top: var(--space-m);
+		color: var(--ink-muted);
+	}
 	.about-teaser__link {
 		display: inline-block;
 		font-weight: 500;

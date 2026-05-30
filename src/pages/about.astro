@@ -19,6 +19,44 @@ const tools = [
 	'Photoshop',
 	'Affinity Suite',
 ];
+const experience = [
+	{
+		role: 'Marketing Specialist – Web Designer',
+		org: 'Centrica Care Navigators',
+		years: '2026–Present',
+		note: 'On a four-person marketing team handling everything web, from landing pages to user flows to turning print into digital.',
+	},
+	{
+		role: 'Contractor / Freelance Designer',
+		org: 'Freelance',
+		years: '2022–Present',
+		note: 'Design and build for clients across legal, media, and hospitality, usually the tangled briefs that need untangling before anything gets made.',
+	},
+	{
+		role: 'UI/UX Designer',
+		org: 'Consumers Energy',
+		years: '2022',
+		note: 'Mapped a scatter of separate work processes into one internal app, the journey-mapping kind of problem I like most.',
+	},
+	{
+		role: 'Front End Developer',
+		org: 'Kalamazoo Valley Community College',
+		years: '2019–2022',
+		note: 'Three years on a five-person web team building internal apps, a college-wide event platform, and enrollment guides in Laravel and Vue.',
+	},
+	{
+		role: 'UI/UX Designer',
+		org: 'ControlNET, LLC',
+		years: '2015–2019',
+		note: 'My longest brand engagement: a full rebrand, plus the interfaces, print, and web that carried it across the company.',
+	},
+	{
+		role: 'Graphic Designer',
+		org: 'S2Games',
+		years: '2013–2014',
+		note: 'My first real design job, making landing pages, hero-stat interfaces, and convention print for the MOBA game Strife.',
+	},
+];
 ---
 
 <BaseLayout
@@ -27,7 +65,7 @@ const tools = [
 >
 	<PageHeader
 		eyebrow="About"
-		title="A designer, for about as long as I can remember."
+		title="I'd rather make something that endures than something that just looks good."
 	>
 		<div class="prose measure flow">
 			<p>
@@ -52,8 +90,38 @@ const tools = [
 
 	<section class="section container">
 		<div class="section-head">
+			<p class="eyebrow">Experience</p>
+			<h2>Where I've worked</h2>
+			<p class="section-head__lede">
+				More than fifteen years across brand, interface, and web — a few of
+				the places that shaped how I work.
+			</p>
+		</div>
+		<ul class="experience">
+			{experience.map((job) => (
+				<li class="experience__row">
+					<div class="experience__head">
+						<h3 class="experience__role">{job.role}</h3>
+						<p class="experience__meta">{job.org} · {job.years}</p>
+					</div>
+					<p class="experience__note">{job.note}</p>
+				</li>
+			))}
+		</ul>
+		<p class="experience__earlier">
+			Earlier: design &amp; web internships, Kalamazoo Valley Community College
+			(2011–2012).
+		</p>
+	</section>
+
+	<section class="section container">
+		<div class="section-head">
 			<p class="eyebrow">Capabilities</p>
 			<h2>Skills &amp; tools</h2>
+			<p class="section-head__lede">
+				The range I lean on to take an idea from a clear scope to something
+				that lasts.
+			</p>
 		</div>
 		<div class="two-col">
 			<div>
@@ -99,5 +167,46 @@ const tools = [
 		padding: 0.35em 0.9em;
 		border: 1px solid var(--line);
 		border-radius: 999px;
+	}
+	.experience {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+	.experience__row {
+		display: grid;
+		gap: var(--space-2xs);
+		padding: var(--space-m) 0;
+		border-top: 1px solid var(--line);
+	}
+	.experience__row:last-child {
+		border-bottom: 1px solid var(--line);
+	}
+	.experience__head {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: var(--space-2xs) var(--space-m);
+	}
+	.experience__role {
+		font-size: var(--step-1);
+		margin: 0;
+	}
+	.experience__meta {
+		font-family: var(--font-display);
+		font-size: var(--step--1);
+		color: var(--ink-muted);
+		margin: 0;
+	}
+	.experience__note {
+		max-width: var(--measure, 60ch);
+		color: var(--ink-muted);
+		margin: 0;
+	}
+	.experience__earlier {
+		margin-top: var(--space-m);
+		font-size: var(--step--1);
+		color: var(--ink-muted);
 	}
 </style>
