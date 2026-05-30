@@ -34,17 +34,16 @@ const tags = (type.length ? type : tools).slice(0, 3);
 		padding: var(--space-l) var(--space-m);
 		background: var(--bg-elev);
 		border: 1px solid var(--line);
-		border-radius: var(--radius-lg);
+		border-radius: var(--radius);
 		text-decoration: none;
 		color: inherit;
 		box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
-		transition: transform 0.25s var(--ease), border-color 0.25s var(--ease),
-			box-shadow 0.25s var(--ease);
+		transition: border-color 0.25s var(--ease), transform 0.25s var(--ease);
 	}
+	/* Whole card grows slightly, border tints, shadow static, no lift */
 	.card:hover {
-		transform: translateY(-4px);
-		border-color: var(--accent);
-		box-shadow: 0 14px 40px -22px rgba(120, 30, 70, 0.5);
+		border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+		transform: scale(1.02);
 	}
 	.card__head {
 		display: flex;
@@ -65,7 +64,9 @@ const tags = (type.length ? type : tools).slice(0, 3);
 	.card__title {
 		font-size: var(--step-3);
 		margin-top: var(--space-2xs);
+		transition: color 0.25s var(--ease);
 	}
+	.card:hover .card__title { color: var(--accent); }
 	.card__summary { color: var(--ink-muted); }
 	.card__foot {
 		display: flex;
@@ -84,7 +85,7 @@ const tags = (type.length ? type : tools).slice(0, 3);
 	}
 	.card__tags li {
 		font-size: var(--step--1);
-		padding: 0.2em 0.7em;
+		padding: 0.15em 0.6em;
 		border: 1px solid var(--line);
 		border-radius: 999px;
 		color: var(--ink-muted);
@@ -92,7 +93,5 @@ const tags = (type.length ? type : tools).slice(0, 3);
 	.card__cta {
 		font-size: var(--step-2);
 		color: var(--accent);
-		transition: transform 0.25s var(--ease);
 	}
-	.card:hover .card__cta { transform: translateX(4px); }
 </style>

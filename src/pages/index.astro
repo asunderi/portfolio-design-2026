@@ -24,7 +24,7 @@ const projects = (await getCollection('projects'))
 		</p>
 		<Fragment slot="actions">
 			<a class="button" href="/work">See my work</a>
-			<a class="button button--ghost" href="mailto:hello@anastacia.design">Say hi</a>
+			<a class="text-link" href="mailto:hello@anastacia.design">Say hi</a>
 		</Fragment>
 	</PageHeader>
 
@@ -60,7 +60,7 @@ const projects = (await getCollection('projects'))
 				out.
 			</p>
 		</div>
-		<a class="about-teaser__link" href="/about">More about me &rarr;</a>
+		<a class="text-link" href="/about">More about me &rarr;</a>
 	</section>
 
 	<ContactCTA />
@@ -70,15 +70,5 @@ const projects = (await getCollection('projects'))
 	.hero-support {
 		margin-top: var(--space-m);
 		color: var(--ink-muted);
-	}
-	.about-teaser__link {
-		display: inline-block;
-		font-weight: 500;
-		color: var(--accent);
-		text-decoration: none;
-	}
-	.about-teaser__link:hover {
-		text-decoration: underline;
-		text-underline-offset: 3px;
 	}
 </style>
