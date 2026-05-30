@@ -7,14 +7,14 @@
 	--font-display: 'DM Serif Text', Georgia, serif;
 
 	/* Fluid type scale (clamp: min, fluid, max) */
-	--step--1: clamp(0.83rem, 0.78rem + 0.24vw, 0.96rem);
-	--step-0: clamp(1rem, 0.93rem + 0.33vw, 1.19rem);
-	--step-1: clamp(1.2rem, 1.09rem + 0.54vw, 1.48rem);
-	--step-2: clamp(1.44rem, 1.28rem + 0.81vw, 1.85rem);
-	--step-3: clamp(1.73rem, 1.49rem + 1.18vw, 2.31rem);
-	--step-4: clamp(2.07rem, 1.73rem + 1.69vw, 2.89rem);
-	--step-5: clamp(2.49rem, 2.01rem + 2.39vw, 3.61rem);
-	--step-6: clamp(2.99rem, 2.32rem + 3.33vw, 4.51rem);
+	--step--1: clamp(0.83rem, 0.82rem + 0.05vw, 0.86rem);
+	--step-0: clamp(1rem, 0.98rem + 0.10vw, 1.06rem);
+	--step-1: clamp(1.2rem, 1.16rem + 0.20vw, 1.32rem);
+	--step-2: clamp(1.44rem, 1.37rem + 0.37vw, 1.66rem);
+	--step-3: clamp(1.73rem, 1.61rem + 0.58vw, 2.07rem);
+	--step-4: clamp(2.07rem, 1.89rem + 0.88vw, 2.59rem);
+	--step-5: clamp(2.49rem, 2.24rem + 1.26vw, 3.23rem);
+	--step-6: clamp(2.99rem, 2.63rem + 1.79vw, 4.04rem);
 
 	/* Color — cool paper light theme */
 	--bg: #e7e8ec;            /* cool grey pulp */
@@ -33,7 +33,7 @@
 	--space-m: 1.5rem;
 	--space-l: 2.5rem;
 	--space-xl: 4rem;
-	--space-2xl: 6rem;
+	--space-2xl: 4.5rem;
 
 	/* Layout */
 	--measure: 66ch;
@@ -142,6 +142,61 @@ em, i { font-style: italic; }
 	letter-spacing: 0.14em;
 	text-transform: uppercase;
 	color: var(--accent);
+}
+
+/* ============================================================
+   Primitive: page header (eyebrow + h1 + lede + actions)
+   ============================================================ */
+.page-header { padding-block: var(--space-2xl); }
+.page-header__title { font-size: var(--step-5); margin-top: var(--space-s); }
+.page-header__lede {
+	font-size: var(--step-1);
+	color: var(--ink-muted);
+	margin-top: var(--space-m);
+}
+.page-header__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-s);
+	margin-top: var(--space-l);
+}
+.page-header--hero .page-header__title { font-size: var(--step-6); max-width: 16ch; }
+
+/* ============================================================
+   Primitive: section head (eyebrow + h2 + optional link/lede)
+   ============================================================ */
+.section-head { margin-bottom: var(--space-l); }
+.section-head__bar {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: var(--space-s);
+	margin-top: var(--space-2xs);
+}
+.section-head h2 { font-size: var(--step-3); }
+.section-head__link {
+	font-family: var(--font-display);
+	font-size: var(--step--1);
+	color: var(--accent);
+	text-decoration: none;
+	white-space: nowrap;
+}
+.section-head__link:hover { text-decoration: underline; text-underline-offset: 3px; }
+.section-head__lede {
+	margin-top: var(--space-s);
+	font-size: var(--step-1);
+	color: var(--ink-muted);
+	max-width: var(--measure);
+}
+
+/* Two-up card grid (work index + home featured) */
+.grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: var(--space-m);
+}
+@media (max-width: 40rem) {
+	.grid { grid-template-columns: 1fr; }
 }
 
 /* Buttons */

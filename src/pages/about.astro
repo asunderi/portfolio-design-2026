@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import ContactCTA from '../components/ContactCTA.astro';
 
 const skills = [
 	'Graphic Design',
@@ -23,9 +25,10 @@ const tools = [
 	title="About"
 	description="Anastacia Frost — a designer with nearly a decade of experience blending aesthetics with functionality."
 >
-	<section class="container intro">
-		<p class="eyebrow">About</p>
-		<h1>Designs that solve problems, tell stories, and connect.</h1>
+	<PageHeader
+		eyebrow="About"
+		title="Designs that solve problems, tell stories, and connect."
+	>
 		<div class="prose measure flow">
 			<p>
 				I'm Anastacia — a designer with nearly a decade of experience blending
@@ -42,40 +45,44 @@ const tools = [
 				games, watching horror films, and hanging out with my cat.
 			</p>
 		</div>
+	</PageHeader>
+
+	<section class="section container">
+		<div class="section-head">
+			<p class="eyebrow">Capabilities</p>
+			<h2>Skills &amp; tools</h2>
+		</div>
+		<div class="two-col">
+			<div>
+				<h3>Skills &amp; expertise</h3>
+				<ul class="tags">
+					{skills.map((s) => <li>{s}</li>)}
+				</ul>
+			</div>
+			<div>
+				<h3>Tools</h3>
+				<ul class="tags">
+					{tools.map((t) => <li>{t}</li>)}
+				</ul>
+			</div>
+		</div>
 	</section>
 
-	<section class="container section two-col">
-		<div>
-			<h2>Skills &amp; expertise</h2>
-			<ul class="tags">
-				{skills.map((s) => <li>{s}</li>)}
-			</ul>
-		</div>
-		<div>
-			<h2>Tools</h2>
-			<ul class="tags">
-				{tools.map((t) => <li>{t}</li>)}
-			</ul>
-		</div>
-	</section>
-
-	<section class="container about-cta">
-		<p>Have a project in mind?</p>
-		<a class="button" href="mailto:hello@anastacia.design">Get in touch</a>
-	</section>
+	<ContactCTA />
 </BaseLayout>
 
 <style>
-	.intro { padding-block: var(--space-xl) 0; }
-	.intro h1 { font-size: var(--step-4); max-width: 20ch; margin-top: var(--space-s); }
-	.prose { margin-top: var(--space-l); font-size: var(--step-1); color: var(--ink-muted); }
-	.section { padding-block: var(--space-2xl) var(--space-l); }
+	.prose {
+		margin-top: var(--space-l);
+		font-size: var(--step-1);
+		color: var(--ink-muted);
+	}
 	.two-col {
 		display: grid;
 		gap: var(--space-xl);
 		grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
 	}
-	.two-col h2 { font-size: var(--step-2); margin-bottom: var(--space-m); }
+	.two-col h3 { font-size: var(--step-1); margin-bottom: var(--space-m); }
 	.tags {
 		display: flex;
 		flex-wrap: wrap;
@@ -90,13 +97,4 @@ const tools = [
 		border: 1px solid var(--line);
 		border-radius: 999px;
 	}
-	.about-cta {
-		display: flex;
-		align-items: center;
-		gap: var(--space-m);
-		flex-wrap: wrap;
-		padding-block: var(--space-l) var(--space-2xl);
-		border-top: 1px solid var(--line);
-	}
-	.about-cta p { font-family: var(--font-display); font-size: var(--step-2); }
 </style>

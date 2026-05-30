@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
+import PageHeader from '../../components/PageHeader.astro';
 
 const projects = (await getCollection('projects')).sort(
 	(a, b) => a.data.order - b.data.order,
@@ -12,16 +13,13 @@ const projects = (await getCollection('projects')).sort(
 	title="Work"
 	description="Selected projects by Anastacia Frost — branding, UI/UX, and web design."
 >
-	<section class="container intro">
-		<p class="eyebrow">Work</p>
-		<h1>Selected projects</h1>
-		<p class="measure intro__lede">
-			A mix of branding, interface, and web work. Each project starts with a
-			problem and ends with something intentional.
-		</p>
-	</section>
+	<PageHeader
+		eyebrow="Work"
+		title="Selected projects"
+		lede="A mix of branding, interface, and web work. Each project starts with a problem and ends with something intentional."
+	/>
 
-	<section class="container section">
+	<section class="section container">
 		<div class="grid">
 			{projects.map((p) => (
 				<ProjectCard
@@ -36,18 +34,3 @@ const projects = (await getCollection('projects')).sort(
 		</div>
 	</section>
 </BaseLayout>
-
-<style>
-	.intro { padding-block: var(--space-xl) 0; }
-	.intro h1 { font-size: var(--step-5); margin-top: var(--space-s); }
-	.intro__lede { color: var(--ink-muted); margin-top: var(--space-m); }
-	.section { padding-block: var(--space-l) var(--space-2xl); }
-	.grid {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: var(--space-m);
-	}
-	@media (max-width: 40rem) {
-		.grid { grid-template-columns: 1fr; }
-	}
-</style>

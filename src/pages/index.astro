@@ -2,6 +2,8 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
+import PageHeader from '../components/PageHeader.astro';
+import ContactCTA from '../components/ContactCTA.astro';
 
 const projects = (await getCollection('projects'))
 	.filter((p) => p.data.featured)
@@ -9,25 +11,25 @@ const projects = (await getCollection('projects'))
 ---
 
 <BaseLayout title="Anastacia Frost">
-	<section class="hero container">
-		<p class="eyebrow">UI/UX Developer</p>
-		<h1 class="hero__title">
-			I turn the spark of an idea into a fully realized vision.
-		</h1>
-		<p class="hero__lede measure">
-			Designs that are intentional, meaningful, and distinctly yours — blending
-			aesthetics with functionality across branding, UI/UX, and the web.
-		</p>
-		<div class="hero__actions">
+	<PageHeader
+		variant="hero"
+		eyebrow="UI/UX Developer"
+		title="I turn the spark of an idea into a fully realized vision."
+		lede="Designs that are intentional, meaningful, and distinctly yours — blending aesthetics with functionality across branding, UI/UX, and the web."
+	>
+		<Fragment slot="actions">
 			<a class="button" href="/work">See my work</a>
 			<a class="button button--ghost" href="mailto:hello@anastacia.design">Get in touch</a>
-		</div>
-	</section>
+		</Fragment>
+	</PageHeader>
 
 	<section class="section container">
-		<div class="section__head">
-			<h2>Featured work</h2>
-			<a href="/work" class="section__link">All projects →</a>
+		<div class="section-head">
+			<p class="eyebrow">Work</p>
+			<div class="section-head__bar">
+				<h2>Featured work</h2>
+				<a href="/work" class="section-head__link">All projects →</a>
+			</div>
 		</div>
 		<div class="grid">
 			{projects.map((p) => (
@@ -44,92 +46,30 @@ const projects = (await getCollection('projects'))
 	</section>
 
 	<section class="section container about-teaser">
-		<p class="eyebrow">About</p>
-		<p class="about-teaser__lede measure">
-			I'm Anastacia — a designer with nearly a decade of experience creating work
-			that solves problems, tells stories, and builds meaningful connections.
-		</p>
+		<div class="section-head">
+			<p class="eyebrow">About</p>
+			<h2>A bit about me</h2>
+			<p class="section-head__lede">
+				I'm Anastacia — a designer with nearly a decade of experience creating
+				work that solves problems, tells stories, and builds meaningful
+				connections.
+			</p>
+		</div>
 		<a class="about-teaser__link" href="/about">More about me &rarr;</a>
 	</section>
 
-	<section id="contact" class="section container contact">
-		<p class="eyebrow">Contact</p>
-		<h2 class="contact__title">Let's make something.</h2>
-		<p class="contact__avail">Open to freelance and full-time design work.</p>
-		<div class="contact__actions">
-			<a class="button" href="mailto:hello@anastacia.design">Email me</a>
-			<a class="button button--ghost" href="https://www.linkedin.com/" rel="me">LinkedIn</a>
-		</div>
-	</section>
+	<ContactCTA />
 </BaseLayout>
 
 <style>
-	.hero { padding-block: var(--space-2xl) var(--space-xl); }
-	.hero__title {
-		font-size: var(--step-6);
-		max-width: 16ch;
-		margin-top: var(--space-s);
-	}
-	.hero__lede {
-		font-size: var(--step-1);
-		color: var(--ink-muted);
-		margin-top: var(--space-m);
-	}
-	.hero__actions {
-		display: flex;
-		flex-wrap: wrap;
-		gap: var(--space-s);
-		margin-top: var(--space-l);
-	}
-	.section__head {
-		display: flex;
-		align-items: baseline;
-		justify-content: space-between;
-		gap: var(--space-s);
-		margin-bottom: var(--space-l);
-	}
-	.section__head h2 { font-size: var(--step-3); }
-	.section__link {
-		font-family: var(--font-display);
-		font-size: var(--step--1);
-		color: var(--accent);
-		text-decoration: none;
-		white-space: nowrap;
-	}
-	.grid {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: var(--space-m);
-	}
-	@media (max-width: 40rem) {
-		.grid { grid-template-columns: 1fr; }
-	}
-
-	.about-teaser__lede {
-		font-family: var(--font-display);
-		font-size: var(--step-3);
-		margin-top: var(--space-s);
-	}
 	.about-teaser__link {
 		display: inline-block;
-		margin-top: var(--space-m);
 		font-weight: 500;
 		color: var(--accent);
 		text-decoration: none;
 	}
-	.about-teaser__link:hover { text-decoration: underline; text-underline-offset: 3px; }
-
-	#contact { scroll-margin-top: 5rem; }
-	.contact__title { font-size: var(--step-3); margin-top: var(--space-s); }
-	.contact__avail {
-		margin-top: var(--space-s);
-		font-size: var(--step-1);
-		color: var(--ink-muted);
-	}
-	.contact__actions {
-		display: flex;
-		flex-wrap: wrap;
-		gap: var(--space-s);
-		margin-top: var(--space-l);
+	.about-teaser__link:hover {
+		text-decoration: underline;
+		text-underline-offset: 3px;
 	}
 </style>
