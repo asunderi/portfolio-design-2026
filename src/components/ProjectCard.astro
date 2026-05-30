@@ -3,22 +3,27 @@ interface Props {
 	id: string;
 	title: string;
 	summary: string;
-	year: number;
-	tools: string[];
+	dateLabel: string;
+	type?: string[];
+	tools?: string[];
 }
-const { id, title, summary, year, tools } = Astro.props;
+const { id, title, summary, dateLabel, type = [], tools = [] } = Astro.props;
+const tags = (type.length ? type : tools).slice(0, 3);
 ---
 
 <a href={`/work/${id}`} class="card">
 	<div class="card__head">
-		<h3 class="card__title">{title}</h3>
-		<span class="card__year">{year}</span>
+		<span class="card__year">{dateLabel}</span>
+		{tags[0] && <span class="card__kicker">{tags[0]}</span>}
 	</div>
+	<h3 class="card__title">{title}</h3>
 	<p class="card__summary">{summary}</p>
-	<ul class="card__tools">
-		{tools.map((t) => <li>{t}</li>)}
-	</ul>
-	<span class="card__cta">View project →</span>
+	<div class="card__foot">
+		<ul class="card__tags">
+			{tags.map((t) => <li>{t}</li>)}
+		</ul>
+		<span class="card__cta" aria-hidden="true">→</span>
+	</div>
 </a>
 
 <style>
@@ -26,40 +31,58 @@ const { id, title, summary, year, tools } = Astro.props;
 		display: flex;
 		flex-direction: column;
 		gap: var(--space-xs);
-		padding: var(--space-m);
+		padding: var(--space-l) var(--space-m);
 		background: var(--bg-elev);
 		border: 1px solid var(--line);
-		border-radius: var(--radius);
+		border-radius: var(--radius-lg);
 		text-decoration: none;
 		color: inherit;
-		transition: transform 0.25s var(--ease), border-color 0.25s var(--ease);
+		box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
+		transition: transform 0.25s var(--ease), border-color 0.25s var(--ease),
+			box-shadow 0.25s var(--ease);
 	}
 	.card:hover {
 		transform: translateY(-4px);
 		border-color: var(--accent);
+		box-shadow: 0 14px 40px -22px rgba(80, 50, 20, 0.5);
 	}
 	.card__head {
 		display: flex;
-		align-items: baseline;
+		align-items: center;
 		justify-content: space-between;
 		gap: var(--space-s);
-	}
-	.card__title { font-size: var(--step-2); }
-	.card__year {
-		font-family: var(--font-display);
 		font-size: var(--step--1);
 		color: var(--ink-muted);
 	}
+	.card__year { font-variant-numeric: tabular-nums; }
+	.card__kicker {
+		color: var(--accent);
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		font-size: 0.72em;
+		font-weight: 500;
+	}
+	.card__title {
+		font-size: var(--step-3);
+		margin-top: var(--space-2xs);
+	}
 	.card__summary { color: var(--ink-muted); }
-	.card__tools {
+	.card__foot {
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: var(--space-s);
+		margin-top: auto;
+		padding-top: var(--space-s);
+	}
+	.card__tags {
 		display: flex;
 		flex-wrap: wrap;
 		gap: var(--space-2xs);
 		list-style: none;
 		padding: 0;
-		margin-top: auto;
 	}
-	.card__tools li {
+	.card__tags li {
 		font-size: var(--step--1);
 		padding: 0.2em 0.7em;
 		border: 1px solid var(--line);
@@ -67,9 +90,9 @@ const { id, title, summary, year, tools } = Astro.props;
 		color: var(--ink-muted);
 	}
 	.card__cta {
-		font-family: var(--font-display);
-		font-size: var(--step--1);
+		font-size: var(--step-2);
 		color: var(--accent);
-		margin-top: var(--space-2xs);
+		transition: transform 0.25s var(--ease);
 	}
+	.card:hover .card__cta { transform: translateX(4px); }
 </style>

@@ -50,7 +50,8 @@ const stats = [
 					id={p.id}
 					title={p.data.title}
 					summary={p.data.summary}
-					year={p.data.year}
+					dateLabel={p.data.dateLabel ?? String(p.data.year)}
+					type={p.data.type}
 					tools={p.data.tools}
 				/>
 			))}

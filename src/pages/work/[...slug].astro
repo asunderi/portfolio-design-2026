@@ -12,7 +12,16 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 const { Content } = await render(project);
-const { title, summary, year, role, tools } = project.data;
+const { title, summary, year, dateLabel, role, type, tools, client } =
+	project.data;
+
+const meta = [
+	{ label: 'Year', value: dateLabel ?? String(year) },
+	{ label: 'Role', value: role },
+	{ label: 'Client', value: client },
+	{ label: 'Discipline', value: type.length ? type.join(', ') : undefined },
+	{ label: 'Tools', value: tools.length ? tools.join(', ') : undefined },
+].filter((m) => m.value);
 ---
 
 <BaseLayout title={title} description={summary}>
@@ -23,18 +32,12 @@ const { title, summary, year, role, tools } = project.data;
 			<p class="project__summary measure">{summary}</p>
 
 			<dl class="meta">
-				<div class="meta__item">
-					<dt>Year</dt>
-					<dd>{year}</dd>
-				</div>
-				<div class="meta__item">
-					<dt>Role</dt>
-					<dd>{role}</dd>
-				</div>
-				<div class="meta__item">
-					<dt>Tools</dt>
-					<dd>{tools.join(', ')}</dd>
-				</div>
+				{meta.map((m) => (
+					<div class="meta__item">
+						<dt>{m.label}</dt>
+						<dd>{m.value}</dd>
+					</div>
+				))}
 			</dl>
 		</header>
 
@@ -73,8 +76,30 @@ const { title, summary, year, role, tools } = project.data;
 		font-family: var(--font-display);
 		margin: 0;
 	}
-	.project__body { padding-bottom: var(--space-2xl); }
-	.project__body :global(h2) { font-size: var(--step-2); margin-top: var(--space-l); }
-	.project__body :global(ul) { padding-left: 1.2em; }
+	.project__body { padding-bottom: var(--space-2xl); font-size: var(--step-0); }
+	.project__body :global(h2) {
+		font-size: var(--step-3);
+		margin-top: var(--space-xl);
+		margin-bottom: var(--space-2xs);
+	}
+	.project__body :global(h3) {
+		font-size: var(--step-1);
+		margin-top: var(--space-l);
+		margin-bottom: var(--space-2xs);
+	}
+	.project__body :global(p) { color: var(--ink); }
+	.project__body :global(ul) {
+		padding-left: 1.2em;
+		color: var(--ink-muted);
+	}
 	.project__body :global(li) { margin-top: var(--space-2xs); }
+	.project__body :global(li)::marker { color: var(--accent); }
+	.project__body :global(strong) { color: var(--ink); font-weight: 600; }
+	.project__body :global(a) { color: var(--accent); }
+	.project__body :global(hr) {
+		border: 0;
+		height: 1px;
+		background: var(--line);
+		margin-block: var(--space-l);
+	}
 </style>
