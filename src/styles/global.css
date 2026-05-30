@@ -16,15 +16,15 @@
 	--step-5: clamp(2.49rem, 2.01rem + 2.39vw, 3.61rem);
 	--step-6: clamp(2.99rem, 2.32rem + 3.33vw, 4.51rem);
 
-	/* Color — homemade paper light theme */
-	--bg: #f1e6d0;            /* warm oatmeal pulp */
-	--bg-elev: #f9f1df;       /* fresh-pressed sheet */
-	--ink: #35302a;           /* soft warm charcoal */
-	--ink-muted: #6b6050;     /* faded sepia */
-	--line: #dfd1b4;          /* deckled edge */
+	/* Color — cool paper light theme */
+	--bg: #e7e8ec;            /* cool grey pulp */
+	--bg-elev: #f1f2f6;       /* fresh-pressed sheet */
+	--ink: #2d2e31;           /* soft cool charcoal */
+	--ink-muted: #5f6168;     /* dim slate */
+	--line: #d3d5db;          /* deckled edge */
 	--accent: #a83a5f;        /* deep raspberry rose */
-	--accent-soft: #f0c4d4;   /* soft blush */
-	--accent-ink: #f9f1df;
+	--accent-soft: #e4c6d8;   /* cool blush */
+	--accent-ink: #f1f2f6;
 
 	/* Space */
 	--space-2xs: 0.5rem;
@@ -52,25 +52,25 @@
 
 @media (prefers-color-scheme: dark) {
 	:root:not([data-theme="light"]) {
-		--bg: #2a2017;            /* damp kraft pulp */
-		--bg-elev: #352a1e;       /* pressed kraft sheet */
-		--ink: #efe4d2;           /* warm chalk */
-		--ink-muted: #b6a589;     /* dim sepia */
-		--line: #443629;          /* fiber edge */
+		--bg: #1b1d20;            /* damp slate pulp */
+		--bg-elev: #25272b;       /* pressed slate sheet */
+		--ink: #e5e6ea;           /* cool chalk */
+		--ink-muted: #9da0a8;     /* dim slate */
+		--line: #343840;          /* fiber edge */
 		--accent: #ec8aab;        /* lit pink */
-		--accent-soft: #6e3a4d;   /* dark mauve */
-		--accent-ink: #2a2017;
+		--accent-soft: #5b3548;   /* cool deep mauve */
+		--accent-ink: #1b1d20;
 	}
 }
 :root[data-theme="dark"] {
-	--bg: #2a2017;
-	--bg-elev: #352a1e;
-	--ink: #efe4d2;
-	--ink-muted: #b6a589;
-	--line: #443629;
+	--bg: #1b1d20;
+	--bg-elev: #25272b;
+	--ink: #e5e6ea;
+	--ink-muted: #9da0a8;
+	--line: #343840;
 	--accent: #ec8aab;
-	--accent-soft: #6e3a4d;
-	--accent-ink: #2a2017;
+	--accent-soft: #5b3548;
+	--accent-ink: #1b1d20;
 }
 
 /* ============================================================
