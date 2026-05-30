@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const skills = [
+	'Graphic Design',
+	'UI/UX',
+	'Branding',
+	'Infographics',
+	'Web (HTML/SCSS)',
+	'Design Systems',
+];
+const tools = [
+	'Figma',
+	'Illustrator',
+	'InDesign',
+	'Photoshop',
+	'Adobe XD',
+	'Affinity Suite',
+];
+---
+
+<BaseLayout
+	title="About"
+	description="Anastacia Frost — nearly a decade blending aesthetics with functionality across design and the web."
+>
+	<section class="container intro">
+		<p class="eyebrow">About</p>
+		<h1>Designs that solve problems, tell stories, and connect.</h1>
+		<div class="prose measure flow">
+			<p>
+				I'm Anastacia — a designer with nearly a decade of experience blending
+				aesthetics with functionality. I specialize in graphic design, UI/UX,
+				branding, and infographics.
+			</p>
+			<p>
+				My philosophy goes beyond surface-level beauty: I create designs that
+				solve problems, tell stories, and build meaningful connections. Every
+				project starts with intent and ends with something distinctly yours.
+			</p>
+			<p>
+				Off the clock, you'll find me in creative communities, playing video
+				games, watching horror films, and hanging out with my cat.
+			</p>
+		</div>
+	</section>
+
+	<section class="container section two-col">
+		<div>
+			<h2>Skills &amp; expertise</h2>
+			<ul class="tags">
+				{skills.map((s) => <li>{s}</li>)}
+			</ul>
+		</div>
+		<div>
+			<h2>Tools</h2>
+			<ul class="tags">
+				{tools.map((t) => <li>{t}</li>)}
+			</ul>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.intro { padding-block: var(--space-xl) 0; }
+	.intro h1 { font-size: var(--step-5); margin-top: var(--space-s); max-width: 18ch; }
+	.prose { margin-top: var(--space-l); font-size: var(--step-1); color: var(--ink-muted); }
+	.two-col {
+		display: grid;
+		gap: var(--space-xl);
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+	}
+	.two-col h2 { font-size: var(--step-2); margin-bottom: var(--space-m); }
+	.tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-2xs);
+		list-style: none;
+		padding: 0;
+	}
+	.tags li {
+		font-family: var(--font-display);
+		font-size: var(--step--1);
+		padding: 0.35em 0.9em;
+		border: 1px solid var(--line);
+		border-radius: 999px;
+	}
+</style>

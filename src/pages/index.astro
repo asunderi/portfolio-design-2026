@@ -1,0 +1,121 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const projects = (await getCollection('projects'))
+	.filter((p) => p.data.featured)
+	.sort((a, b) => a.data.order - b.data.order);
+
+const stats = [
+	{ value: '50+', label: 'Projects' },
+	{ value: '9+', label: 'Years' },
+	{ value: '20+', label: 'Clients' },
+];
+---
+
+<BaseLayout title="Anastacia Frost">
+	<section class="hero container">
+		<p class="eyebrow">UI/UX Developer</p>
+		<h1 class="hero__title">
+			I turn the spark of an idea into a fully realized vision.
+		</h1>
+		<p class="hero__lede measure">
+			Designs that are intentional, meaningful, and distinctly yours — blending
+			aesthetics with functionality across branding, UI/UX, and the web.
+		</p>
+		<div class="hero__actions">
+			<a class="button" href="/work">See my work</a>
+			<a class="button button--ghost" href="/contact">Get in touch</a>
+		</div>
+
+		<ul class="stats">
+			{stats.map(({ value, label }) => (
+				<li class="stats__item">
+					<span class="stats__value">{value}</span>
+					<span class="stats__label">{label}</span>
+				</li>
+			))}
+		</ul>
+	</section>
+
+	<section class="section container">
+		<div class="section__head">
+			<h2>Featured work</h2>
+			<a href="/work" class="section__link">All projects →</a>
+		</div>
+		<div class="grid">
+			{projects.map((p) => (
+				<ProjectCard
+					id={p.id}
+					title={p.data.title}
+					summary={p.data.summary}
+					year={p.data.year}
+					tools={p.data.tools}
+				/>
+			))}
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.hero { padding-block: var(--space-2xl) var(--space-xl); }
+	.hero__title {
+		font-size: var(--step-6);
+		max-width: 16ch;
+		margin-top: var(--space-s);
+	}
+	.hero__lede {
+		font-size: var(--step-1);
+		color: var(--ink-muted);
+		margin-top: var(--space-m);
+	}
+	.hero__actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-s);
+		margin-top: var(--space-l);
+	}
+	.stats {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-xl);
+		list-style: none;
+		padding: 0;
+		margin-top: var(--space-2xl);
+		border-top: 1px solid var(--line);
+		padding-top: var(--space-l);
+	}
+	.stats__item { display: flex; flex-direction: column; }
+	.stats__value {
+		font-family: var(--font-display);
+		font-size: var(--step-4);
+		font-weight: 600;
+	}
+	.stats__label {
+		font-size: var(--step--1);
+		color: var(--ink-muted);
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+	}
+	.section__head {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: var(--space-s);
+		margin-bottom: var(--space-l);
+	}
+	.section__head h2 { font-size: var(--step-3); }
+	.section__link {
+		font-family: var(--font-display);
+		font-size: var(--step--1);
+		color: var(--accent);
+		text-decoration: none;
+		white-space: nowrap;
+	}
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+		gap: var(--space-m);
+	}
+</style>
