@@ -244,6 +244,7 @@ em, i { font-style: italic; }
 .text-link {
 	position: relative;
 	display: inline-block;
+	font-family: var(--font-display);
 	font-weight: 500;
 	color: var(--accent);
 	text-decoration: none;
