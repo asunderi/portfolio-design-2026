@@ -1,0 +1,119 @@
+---
+/**
+ * Inline figure for project case studies.
+ * Omit `src` to render a labeled placeholder box (sized to `ratio`) so image
+ * slots are visible before real assets exist. Label shows alt + ratio.
+ */
+interface Props {
+	/** Image path. Absent → placeholder box. */
+	src?: string;
+	/** Required alt text. Doubles as the placeholder label. */
+	alt: string;
+	/** Optional caption rendered below. */
+	caption?: string;
+	/** Aspect ratio, e.g. "16/9", "4/3", "1/1". Reserves space, no layout shift. */
+	ratio?: string;
+	/** Placement width. */
+	width?: 'text' | 'wide' | 'full';
+}
+
+const { src, alt, caption, ratio = '16/9', width = 'text' } = Astro.props;
+---
+
+<figure class:list={['figure', `figure--${width}`]}>
+	{src ? (
+		<img src={src} alt={alt} loading="lazy" style={`aspect-ratio: ${ratio};`} />
+	) : (
+		<div class="figure__placeholder" style={`aspect-ratio: ${ratio};`} role="img" aria-label={`Placeholder: ${alt}`}>
+			<span class="figure__label">{alt}</span>
+			<span class="figure__ratio">{ratio}</span>
+		</div>
+	)}
+	{caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<style>
+	.figure {
+		margin-block: var(--space-l);
+	}
+	.figure img,
+	.figure__placeholder {
+		display: block;
+		width: 100%;
+		border-radius: var(--radius-lg);
+	}
+	.figure img {
+		height: auto;
+		object-fit: cover;
+	}
+
+	/* Placeholder: dashed slot showing intended content + ratio */
+	.figure__placeholder {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: var(--space-2xs);
+		padding: var(--space-m);
+		text-align: center;
+		background: var(--bg-elev);
+		border: 1.5px dashed var(--line);
+	}
+	.figure__label {
+		font-family: var(--font-display);
+		font-size: var(--step-0);
+		color: var(--ink-muted);
+		max-width: 40ch;
+	}
+	.figure__ratio {
+		font-size: var(--step--1);
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: var(--ink-muted);
+		opacity: 0.7;
+	}
+
+	/* Caption: muted small, like meta labels */
+	.figure figcaption {
+		margin-top: var(--space-2xs);
+		font-size: var(--step--1);
+		color: var(--ink-muted);
+	}
+
+	/* --- Widths --- */
+	/* text: stays in the reading measure (default flow) */
+
+	/* Breakout anchors on --bleed-left: the content column's distance from the
+	   viewport's left edge (set by the project layout). Falls back to 0 so the
+	   figure still works outside that layout. */
+
+	/* wide: break past measure, capped at container width, centered on viewport */
+	.figure--wide {
+		--w: min(var(--container), 100vw - 2 * var(--space-m));
+		width: var(--w);
+		margin-left: calc((100vw - var(--w)) / 2 - var(--bleed-left, 0px));
+		margin-right: 0;
+	}
+	/* Image is viewport-centered, but align its caption with the body text. */
+	.figure--wide figcaption {
+		padding-left: calc(var(--bleed-left, 0px) - (100vw - var(--w)) / 2);
+		padding-right: var(--space-m);
+	}
+
+	/* full: full-bleed edge to edge */
+	.figure--full {
+		width: 100vw;
+		margin-left: calc(-1 * var(--bleed-left, 0px));
+		margin-right: 0;
+	}
+	/* The image bleeds, but pull its caption back in line with the body text
+	   so it isn't flush against the viewport edge. */
+	.figure--full figcaption {
+		padding-left: var(--bleed-left, 0px);
+		padding-right: var(--space-m);
+	}
+	.figure--full img,
+	.figure--full .figure__placeholder {
+		border-radius: 0;
+	}
+</style>

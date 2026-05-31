@@ -5,6 +5,8 @@ const projects = defineCollection({
 	loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/projects' }),
 	schema: z.object({
 		title: z.string(),
+		/** Short label for tight spots (content-peek). Falls back to `title`. */
+		shortTitle: z.string().optional(),
 		summary: z.string(),
 		/** Sort key — use the most recent year of the engagement. */
 		year: z.number(),
