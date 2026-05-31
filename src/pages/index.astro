@@ -28,7 +28,7 @@ const projects = (await getCollection('projects'))
 		</Fragment>
 	</PageHeader>
 
-	<section class="section container">
+	<section id="main-content" class="section container">
 		<div class="section-head">
 			<p class="eyebrow">Work</p>
 			<div class="section-head__bar">
@@ -71,4 +71,5 @@ const projects = (await getCollection('projects'))
 		margin-top: var(--space-m);
 		color: var(--ink-muted);
 	}
+	#main-content { scroll-margin-top: 4rem; }
 </style>

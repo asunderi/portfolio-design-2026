@@ -145,6 +145,14 @@ em, i { font-style: italic; }
 	gap: var(--space-s);
 	margin-top: var(--space-l);
 }
+.page-header--hero {
+	position: relative;
+	min-height: calc(100svh - 4rem);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding-bottom: calc(var(--space-2xl) + var(--space-l));
+}
 .page-header--hero .page-header__title { font-size: var(--step-6); max-width: 16ch; }
 
 /* ============================================================
